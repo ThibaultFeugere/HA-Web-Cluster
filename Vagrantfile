@@ -9,7 +9,7 @@ echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf # permet de dire au kernel qu'i
 echo "net.ipv4.ip_nonlocal_bind=1" >> /etc/sysctl.conf
 echo "Configuration de Keepalived"
 sudo su
-cat /home/vagrant/confs/haproxy1/keepalived.conf >> /etc/keepalived/keepalived.conf
+cat /home/vagrant/confs/haproxy1/keepalived.conf > /etc/keepalived/keepalived.conf
 echo "Redemarrage de Keepalived"
 sudo systemctl restart keepalived.service
 echo "Configuration de Haproxy"
@@ -27,7 +27,7 @@ echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
 echo "net.ipv4.ip_nonlocal_bind=1" >> /etc/sysctl.conf
 echo "Configuration de Keepalived"
 sudo su
-cat /home/vagrant/confs/haproxy1/keepalived.conf >> /etc/keepalived/keepalived.conf
+cat /home/vagrant/confs/haproxy1/keepalived.conf > /etc/keepalived/keepalived.conf
 echo "Redemarrage de Keepalived"
 sudo systemctl restart keepalived.service
 echo "Configuration de Haproxy"
