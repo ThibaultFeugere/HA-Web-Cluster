@@ -74,3 +74,6 @@ Vagrant.configure("2") do |config|
 end
 ```
 
+## Lancement des machines
+
+Il nous suffit de faire `vagrant up`.
