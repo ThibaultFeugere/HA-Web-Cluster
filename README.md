@@ -9,6 +9,8 @@
 
 Comme il l'était recommandé, nous sommes parti sur Vagrant malgré une hésitation avec Docker et son orchestrateur docker-compose.
 
+L'hyperviseur choisit est VirtualBox.
+
 ## Configuration de VirtualBox
 
 Bien que Vagrant automatise de nombreuses tâches, la plage d'adresse IP nécessaire doit être changé au préalable pour éviter l'erreur : 
@@ -34,6 +36,11 @@ Cela nous concerne puisque nous sommes sur MacOs, nous avons donc créé le fich
 `* 10.0.0.0/24`
 
 Nous l'avons volontairement versionné sur le repository.
+
+| 10.0.0.11 | 10.0.0.12 | 10.0.0.21 | 10.0.0.22 |
+|---|---|---|---|
+| haproxy1 | haproxy2  |  web1 | web2 |
+| State Master | State Backup | |
 
 ## Configuration Vagrant
 
