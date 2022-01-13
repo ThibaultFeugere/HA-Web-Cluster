@@ -15,13 +15,11 @@ Pour répondre à ces exigences nous allons monter une infrastructure web load b
 
 La VIP sur laquelle les utilisateurs viendront se connecter est la 10.0.0.10.
 
-​									shared IP=10.0.0.10
+shared IP = 10.0.0.10
 
- 10.0.0.11				10.0.0.12			10.0.0.21		10.0.0.22
- ——————–+———————+——————-+——————-+
- | haproxy1 |   		| haproxy2 |  	 	| web1 |    	  | web2 |
-
-
+| 10.0.0.11 | 10.0.0.12 | 10.0.0.21 | 10.0.0.22 |
+|---|---|---|---|
+| haproxy1 | haproxy2  |  web1 | web2 |
 
 <img src="http://www.morot.fr/wp-content/uploads/2016/09/ha-ka-haproxy-tproxy-1.png" alt="ha-ka-haproxy-tproxy" style="zoom:80%;" />
 
