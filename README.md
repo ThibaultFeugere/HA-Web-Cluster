@@ -84,3 +84,68 @@ end
 ## Lancement des machines
 
 Il nous suffit de faire `vagrant up`.
+
+De plus, nous avons scripté tout le TP dans le Vagrantfile et nous avons ajouté les fichiers de conf au repo pour automatiser l'installation.
+
+## Questions 
+
+| Evenement                      | Evenement attendu | Evenement obtenu |
+| ------------------------------ | ----------------- | ---------------- |
+| Perte du premier noeud WEB     |         Si le Web 1 tombe, on veut que nos utilisateurs arrivent sur le Web 2          |                  |
+| Perte du premier noeud HAPROXY |         Deuxième noeud Haproxy prend la relève          |     On garde l'IP virtuelle 10.0.0.10             |
+
+
+Pour le premier évènement, nous pouvons utiliser curl :
+
+```
+high-availability-web-cluster git:(main) ✗ curl 10.0.0.10
+test web1
+```
+
+On down Web 1
+
+```
+high-availability-web-cluster git:(main) ✗ curl 10.0.0.10
+test web2
+```
+
+On peut vérifier le second évènement avec un ping.
+
+```
+high-availability-web-cluster git:(main) ✗ vagrant ssh web1    
+Last login: Thu Jan 13 15:51:41 2022 from 10.0.2.2
+[vagrant@web1 ~]$ ping 10.0.0.10
+PING 10.0.0.10 (10.0.0.10) 56(84) bytes of data.
+64 bytes from 10.0.0.10: icmp_seq=1 ttl=64 time=1.00 ms
+64 bytes from 10.0.0.10: icmp_seq=2 ttl=64 time=0.429 ms
+64 bytes from 10.0.0.10: icmp_seq=3 ttl=64 time=0.383 ms
+64 bytes from 10.0.0.10: icmp_seq=4 ttl=64 time=0.427 ms
+```
+
+On shutdown la première machine (haproxy1) :
+
+```
+--- 10.0.0.10 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3002ms
+rtt min/avg/max/mdev = 0.383/0.560/1.002/0.256 ms
+[vagrant@web1 ~]$ ping 10.0.0.10
+PING 10.0.0.10 (10.0.0.10) 56(84) bytes of data.
+64 bytes from 10.0.0.10: icmp_seq=1 ttl=64 time=0.400 ms
+64 bytes from 10.0.0.10: icmp_seq=2 ttl=64 time=0.403 ms
+64 bytes from 10.0.0.10: icmp_seq=3 ttl=64 time=0.442 ms
+64 bytes from 10.0.0.10: icmp_seq=4 ttl=64 time=0.901 ms
+```
+
+### Est-ce que l'architecture déployée permet de faire du loadbalancing sur les deux services WEB ? 
+
+Oui, le premier évènement le prouve.
+
+On peut alors imaginer que lors d'une montée de charge avec plusieurs visiteurs pour Croqc'malin on gère cela.
+
+### Quel est le rôle du service Keepalived dans notre infrastructure ?
+
+La service keepalived nous permet d'avoir une adresse IP virtuelle, c'est l'outil qui rentre dans la partie PCA de l'infrastructure pour gérer si un noeud tombe.
+
+### Quel est le rôle du service HAPROXY dans notre infrastructure ?
+
+Le Haproxy est le mécanisme de loadbalancer pour savoir vers où on dirige le trafic. Il envoi les requêtes sur les différents serveurs.
