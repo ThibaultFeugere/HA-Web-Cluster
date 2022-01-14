@@ -91,11 +91,14 @@ De plus, nous avons scripté tout le TP dans le Vagrantfile et nous avons ajout�
 
 | Evenement                      | Evenement attendu | Evenement obtenu |
 | ------------------------------ | ----------------- | ---------------- |
-| Perte du premier noeud WEB     |         Si le Web 1 tombe, on veut que nos utilisateurs arrivent sur le Web 2          |                  |
+| Perte du premier noeud WEB     |         Si le Web 1 tombe, on veut que nos utilisateurs arrivent sur le Web 2          |     L'utilisateur est redirigé vers le site web 2, avec pour HTML test web2            |
 | Perte du premier noeud HAPROXY |         Deuxième noeud Haproxy prend la relève          |     On garde l'IP virtuelle 10.0.0.10             |
+| Perte du deuxième noeud WEB     |         Si le Web 2 tombe, on veut que nos utilisateurs arrivent sur le Web 1          |         L'utilisateur est redirigé vers le site web 1, avec pour HTML test web2         |
+| Perte des deux noeuds     |         Afficher une page de maintenance par exemple          |                  |
 
 
-Pour le premier évènement, nous pouvons utiliser curl :
+
+Pour le premier et troisième évènement, nous pouvons utiliser curl :
 
 ```
 high-availability-web-cluster git:(main) ✗ curl 10.0.0.10
@@ -138,9 +141,7 @@ PING 10.0.0.10 (10.0.0.10) 56(84) bytes of data.
 
 ### Est-ce que l'architecture déployée permet de faire du loadbalancing sur les deux services WEB ? 
 
-Oui, le premier évènement le prouve.
-
-On peut alors imaginer que lors d'une montée de charge avec plusieurs visiteurs pour Croqc'malin on gère cela.
+Oui, le premier évènement et le troisième évènement montre un loadbalancing lorsqu'un des services tombe mais on peut alors imaginer que lors d'une montée de charge avec plusieurs visiteurs pour Croqc'malin on gère cela.
 
 ### Quel est le rôle du service Keepalived dans notre infrastructure ?
 
