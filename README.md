@@ -94,7 +94,6 @@ De plus, nous avons scripté tout le TP dans le Vagrantfile et nous avons ajout�
 | Perte du premier noeud WEB     |         Si le Web 1 tombe, on veut que nos utilisateurs arrivent sur le Web 2          |     L'utilisateur est redirigé vers le site web 2, avec pour HTML test web2            |
 | Perte du premier noeud HAPROXY |         Deuxième noeud Haproxy prend la relève          |     On garde l'IP virtuelle 10.0.0.10             |
 | Perte du deuxième noeud WEB     |         Si le Web 2 tombe, on veut que nos utilisateurs arrivent sur le Web 1          |         L'utilisateur est redirigé vers le site web 1, avec pour HTML test web2         |
-| Perte des deux noeuds     |         Afficher une page de maintenance par exemple          |                  |
 
 
 
