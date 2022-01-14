@@ -141,12 +141,16 @@ PING 10.0.0.10 (10.0.0.10) 56(84) bytes of data.
 
 ### Est-ce que l'architecture déployée permet de faire du loadbalancing sur les deux services WEB ? 
 
-Oui, le premier évènement et le troisième évènement montre un loadbalancing lorsqu'un des services tombe mais on peut alors imaginer que lors d'une montée de charge avec plusieurs visiteurs pour Croqc'malin on gère cela.
+Oui, le premier évènement et le troisième évènement montre un loadbalancing lorsqu'un des services tombe mais on peut alors imaginer que lors d'une montée de charge avec plusieurs visiteurs pour Croqc'malin on fasse de même.
 
 ### Quel est le rôle du service Keepalived dans notre infrastructure ?
 
 La service keepalived nous permet d'avoir une adresse IP virtuelle, c'est l'outil qui rentre dans la partie PCA de l'infrastructure pour gérer si un noeud tombe.
 
+Il a une fonctionnalité de vérification, on peut alors lui demander de vérifier l'état d'un réseau et donc d'un service à intervalle régulier. Dans notre configuration en question c'est toutes les 1 secondes que nous vérifions l'état réseau entre les deux loadbalancers.
+
 ### Quel est le rôle du service HAPROXY dans notre infrastructure ?
 
-Le Haproxy est le mécanisme de loadbalancer pour savoir vers où on dirige le trafic. Il envoi les requêtes sur les différents serveurs.
+Le Haproxy est le mécanisme de loadbalancer, aussi appelé répartiteur de charge en français, pour savoir vers où on dirige le trafic. Il s'occupe de transférer les requêtes entre le client et le serveur web.
+
+Les loadbalancers possèdent différents algorithmes comme `roundrobin`, `leastconn` ou encore `source`. Dans notre cas, comme vous pouvez le voir dans `haproxy.cfg`, nous utilisons `roundrobin`
